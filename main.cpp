@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -125,6 +126,63 @@ void detailedTeamStats(const BoxScore& boxscore) {
     cout << "==========================" << endl;
 }
 
+void handlePlayerProfile() {
+    cout << "Handling Player Profiles:" << endl;
+    cout << "1. Add Player" << endl;
+    cout << "2. Display Players" << endl;
+    int choice;
+    cin >> choice;
+    ofstream file;
+    file.open("microserviceA.txt");
+    if (choice == 1) {
+        file << "Add Player\n";
+    } else if (choice == 2) {
+        file << "Display Players\n";
+    } else {
+        cout << "Invalid choice!" << endl;
+    }
+    file.close();
+    system("./microserviceA");
+}
+
+void handlePerformanceAnalysis() {
+    cout << "Handling Performance Analysis:" << endl;
+    cout << "1. Add Performance" << endl;
+    cout << "2. Display Performances" << endl;
+    int choice;
+    cin >> choice;
+    ofstream file;
+    file.open("microserviceB.txt");
+    if (choice == 1) {
+        file << "Add Performance\n";
+    } else if (choice == 2) {
+        file << "Display Performances\n";
+    } else {
+        cout << "Invalid choice!" << endl;
+    }
+    file.close();
+    system("./microserviceB");
+}
+
+void handleInventoryManagement() {
+    cout << "Handling Inventory Management:" << endl;
+    cout << "1. Add Item" << endl;
+    cout << "2. Display Inventory" << endl;
+    int choice;
+    cin >> choice;
+    ofstream file;
+    file.open("microserviceC.txt");
+    if (choice == 1) {
+        file << "Add Item\n";
+    } else if (choice == 2) {
+        file << "Display Inventory\n";
+    } else {
+        cout << "Invalid choice!" << endl;
+    }
+    file.close();
+    system("./microserviceC");
+}
+
 int main() {
     cout << "==========================" << endl;
     cout << "=== Welcome to HoopHub ===" << endl;
@@ -168,23 +226,22 @@ int main() {
         cout << "Control Center:" << endl;
         cout << "1. View Dashboard" << endl;
         cout << "2. Additional Team Details (Box Score)" << endl;
-        cout << "3. Manage Team Activites (Add, Delete)" << endl;
+        cout << "3. Manage Team Activities (Add, Delete)" << endl;
         cout << "4. Manage Events (Add, Delete)" << endl;
-        cout << "5. Quit" << endl;
+        cout << "5. Manage Player Profiles (via Microservice A)" << endl;
+        cout << "6. Manage Performance Analysis (via Microservice B)" << endl;
+        cout << "7. Manage Inventory (via Microservice C)" << endl;
+        cout << "8. Quit" << endl;
         cin >> choice;
 
         if (choice == 1) {
             displayDashboard(activities, activityCount, stats, events, eventCount);
             cout << endl << endl;
-        }
-
-        else if (choice == 2) {
+        } else if (choice == 2) {
             detailedTeamStats(boxscore);
-        }
-
-        else if (choice == 3) {
+        } else if (choice == 3) {
             int choice;
-            cout << "How would you like to manage you team activities?" << endl;
+            cout << "How would you like to manage your team activities?" << endl;
             cout << "1. Add Activity (number of activities, date, description)" << endl;
             cout << "2. Delete Activity (index of activity)" << endl;
             cout << "3. Back" << endl;
@@ -216,16 +273,12 @@ int main() {
                 activities = newActivities;
 
                 cout << "Activities Successfully Added!" << endl;
-            }
-            else if (choice == 2) {
+            } else if (choice == 2) {
                 deleteActivity(activities, activityCount);
-            }
-            else if (choice == 3) {
+            } else if (choice == 3) {
                 continue;
             }
-        }
-
-        else if (choice == 4) {
+        } else if (choice == 4) {
             int choice;
             cout << "How would you like to manage your events?" << endl;
             cout << "1. Add Event (number of events, date, description)" << endl;
@@ -259,17 +312,21 @@ int main() {
                 events = newEvents;
 
                 cout << "Events Successfully Added!" << endl;
-            }
-            else if (choice == 2) {
+            } else if (choice == 2) {
                 deleteEvent(events, eventCount);
-            }
-            else if (choice == 3) {
+            } else if (choice == 3) {
                 continue;
             }
+        } else if (choice == 5) {
+            handlePlayerProfile();
+        } else if (choice == 6) {
+            handlePerformanceAnalysis();
+        } else if (choice == 7) {
+            handleInventoryManagement();
         }
-    } while (choice !=  5);
+    } while (choice != 8);
 
-    if (choice == 5) {
+    if (choice == 8) {
         cout << "Exiting HoopHub..." << endl;
         return 0;
     }
